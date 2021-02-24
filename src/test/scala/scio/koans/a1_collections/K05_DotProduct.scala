@@ -7,7 +7,6 @@ import scio.koans.shared._
  * Compute the dot product of 2 vectors.
  */
 class K05_DotProduct extends JmhKoan {
-  ImNotDone
 
   val vec1: Array[Double] = (1 to 100).map(_.toDouble / 100).toArray
   val vec2: Array[Double] = (-100 to -1).map(_.toDouble / 100).toArray
@@ -20,11 +19,7 @@ class K05_DotProduct extends JmhKoan {
   // How much faster is this version?
   @Benchmark def v2: Double = {
     var dp = 0.0
-    var i = 0
-    while (i < vec1.length) {
-      ???
-      i += 1
-    }
+    (vec1.iterator zip vec2.iterator).foreach { case(x, y) => dp += (x * y) }
     dp
   }
 

@@ -7,8 +7,6 @@ import scio.koans.shared._
  * Merge 2 `Map[String, Set[Int]]`s.
  */
 class K03_MergeMaps1 extends JmhKoan {
-  ImNotDone
-
   val map1: Map[String, Set[Int]] = Map(
     "a" -> (1 to 20).toSet,
     "b" -> (1 to 40).toSet,
@@ -40,7 +38,7 @@ class K03_MergeMaps1 extends JmhKoan {
   // Hint: if `k` exists in both `m1 ++ m2`, value in `m2` wins
   // How much faster is this version?
   @Benchmark def v2: Map[String, Set[Int]] =
-    map1 ++ map2.map(???)
+    map1 ++ map2.map{ case(k, v) => k -> (v ++ map1.getOrElse(k, Set.empty)) }
 
   verifyResults()
   verifySpeedup(Speedup.Times(2))

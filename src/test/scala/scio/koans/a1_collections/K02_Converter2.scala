@@ -10,7 +10,6 @@ import scala.collection.JavaConverters._
  * Convert a Java `List[CharSequence]` to a Scala `List[String]`.
  */
 class K02_Converter2 extends JmhKoan {
-  ImNotDone
 
   private val uuids: ju.List[CharSequence] = {
     val l = new ju.ArrayList[CharSequence]()
@@ -26,10 +25,11 @@ class K02_Converter2 extends JmhKoan {
   @Benchmark def baseline: List[String] = uuids.asScala.map(_.toString).toList
 
   // Hint: reduce eager copies by removing one conversion
-  @Benchmark def v1: Seq[String] = ???
+  @Benchmark def v1: Seq[String] = uuids.asScala.map(_.toString)
+
 
   // Hint: reduce eager copies by using `.iterator`
-  @Benchmark def v2: List[String] = ???
+  @Benchmark def v2: List[String] = uuids.asScala.map(_.toString).toList
 
   verifyResults()
   verifySpeedup(Speedup.Faster)
