@@ -9,7 +9,6 @@ import scala.collection.mutable
  * Invert a `Map[String, Set[Int]]` to `Map[Int, Set[String]]`
  */
 class K08_InvertMap extends JmhKoan {
-  ImNotDone
 
   val map: Map[String, Set[Int]] =
     Map("a" -> Set(1, 2, 3), "b" -> Set(2, 3, 4), "c" -> Set(4, 5, 6))
@@ -24,10 +23,11 @@ class K08_InvertMap extends JmhKoan {
 
   @Benchmark def v1: mutable.Map[Int, Set[String]] = {
     val m = mutable.Map.empty[Int, Set[String]].withDefaultValue(Set.empty)
-    ???
+    for ((k, values) <- map) {
+      for (v <- values) m(v) += k
+    }
     m
   }
-
   verifyResults()
   verifySpeedup(Speedup.Times(2))
 }

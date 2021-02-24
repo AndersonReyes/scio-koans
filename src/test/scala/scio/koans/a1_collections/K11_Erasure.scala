@@ -28,7 +28,7 @@ class K11_Erasure extends JmhKoan {
   // Hint: `scala.Int` and `java.lang.Integer` are the same boxed integer when inside a generic
   // collection. Therefore `Seq[Int]` and `Seq[java.lang.Integer]` are binary compatible despite
   // the type mismatch.
-  @Benchmark def v1: Int = ???
+  @Benchmark def v1: Int = sum(numbers.asInstanceOf[java.util.List[java.lang.Integer]])
 
   verifyResults()
   verifySpeedup(Speedup.Times(3))

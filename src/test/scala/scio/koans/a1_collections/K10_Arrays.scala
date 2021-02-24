@@ -30,8 +30,8 @@ class K10_Arrays extends JmhKoan {
    *
    * - http://www.lyh.me/slides/primitives.html
    */
-  val array1: Array[Double] = null
-  val array2: Array[Double] = null
+  val array1: Array[Double] = seq1.toArray
+  val array2: Array[Double] = seq2.toArray
 
   @Benchmark def v1: Double = {
     var dp = 0.0

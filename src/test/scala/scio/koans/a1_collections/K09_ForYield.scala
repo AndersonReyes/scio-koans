@@ -2,6 +2,7 @@ package scio.koans.a1_collections
 
 import org.openjdk.jmh.annotations._
 import scio.koans.shared._
+import scala.collection.immutable
 
 /**
  * Cartesian product of two lists.
@@ -27,7 +28,13 @@ class K09_ForYield extends JmhKoan {
    * - reduce the number of `++` concatenations
    * - output order does not matter as long as it produces the same set of tuples
    */
-  @Benchmark def v1: Set[(String, String)] = ???
+  @Benchmark def v1: Set[(String, String)] = {
+    var out: immutable.Set[(String, String)] = Set()
+    for (l <- lhs)
+      for (r <- rhs)
+        out = out + ((l, r))
+    out
+  }
 
   verifyResults()
   verifySpeedup(Speedup.Faster)
