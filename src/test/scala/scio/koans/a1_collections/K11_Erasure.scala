@@ -9,7 +9,6 @@ import scala.collection.JavaConverters._
  * Convert a Scala `Seq[Int]` to Java `List[Integer]`.
  */
 class K11_Erasure extends JmhKoan {
-  ImNotDone
 
   val numbers: Seq[Int] = 1 to 100
 

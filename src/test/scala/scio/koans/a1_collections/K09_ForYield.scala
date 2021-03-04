@@ -8,7 +8,6 @@ import scala.collection.immutable
  * Cartesian product of two lists.
  */
 class K09_ForYield extends JmhKoan {
-  ImNotDone
 
   val lhs: List[String] = (1 to 10000).map("lhs-" + _).toList
   val rhs: List[String] = (1 to 5).map("rhs-" + _).toList
