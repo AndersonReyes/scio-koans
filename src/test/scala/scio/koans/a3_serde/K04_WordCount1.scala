@@ -6,7 +6,6 @@ import scio.koans.shared._
  * Fix the `NotSerializableException`.
  */
 class K04_WordCount1 extends PipelineKoan {
-  ImNotDone
 
   import K04_WordCount1._
 
@@ -28,7 +27,7 @@ class K04_WordCount1 extends PipelineKoan {
 }
 
 object K04_WordCount1 {
-  class Tokenizer(val stopWords: Set[String]) {
+  class Tokenizer(val stopWords: Set[String]) extends Serializable {
     def tokenize(line: String): Seq[String] = line
       .split("[^a-zA-Z']+")
       .filter { w =>

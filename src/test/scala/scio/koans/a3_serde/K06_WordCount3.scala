@@ -11,7 +11,6 @@ import scala.collection.JavaConverters._
  * Fix the `NotSerializableException`.
  */
 class K06_WordCount3 extends PipelineKoan {
-  ImNotDone
 
   import K06_WordCount3._
 
@@ -34,9 +33,9 @@ class K06_WordCount3 extends PipelineKoan {
 
 object K06_WordCount3 {
   class Tokenizer(pattern: String, stopWords: Set[String]) extends Serializable {
-    private val splitter = Splitter.on(Pattern.compile(pattern)).omitEmptyStrings()
-
-    def tokenize(line: String): Iterable[String] =
+    def tokenize(line: String): Iterable[String] = {
+      val splitter = Splitter.on(Pattern.compile(pattern)).omitEmptyStrings()
       splitter.split(line).asScala.filter(!stopWords.contains(_))
+    }
   }
 }

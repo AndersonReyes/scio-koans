@@ -11,7 +11,6 @@ import scala.collection.JavaConverters._
  * Fix the `NotSerializableException`.
  */
 class K05_WordCount2 extends PipelineKoan {
-  ImNotDone
 
   val input: Seq[String] = Seq("a b c", "b c d", "c d e")
   val expected: Seq[(String, Long)] = Seq(("a", 1), ("b", 2), ("c", 3), ("d", 2), ("e", 1))
@@ -19,13 +18,15 @@ class K05_WordCount2 extends PipelineKoan {
   "Snippet" should "work" in {
     runWithContext { sc =>
       // Hint: delay the `tokenizer` initialization
-      val tokenizer = Splitter
-        .on(Pattern.compile("[^a-zA-Z']+"))
-        .omitEmptyStrings()
 
       val output = sc
         .parallelize(input)
-        .flatMap(l => tokenizer.split(l).asScala)
+        .flatMap(l => {
+          val tokenizer = Splitter
+            .on(Pattern.compile("[^a-zA-Z']+"))
+            .omitEmptyStrings()
+          tokenizer.split(l).asScala
+        })
         .countByValue
 
       output should containInAnyOrder(expected)
