@@ -7,7 +7,6 @@ import scio.koans.shared._
  * Fix the non-deterministic coder exception.
  */
 class K03_LatLon2 extends PipelineKoan {
-  ImNotDone
 
   import K03_LatLon2._
 
@@ -44,6 +43,10 @@ object K03_LatLon2 {
     // Companion object of `LatLon` is searched for implicit `F[LatLon]`, i.e. `Coder[LatLon]`
     // https://docs.scala-lang.org/tutorials/FAQ/finding-implicits.html
     // Hint: derive a `LatLon` coder from a type with deterministic encoding
-    implicit val latLonCoder: Coder[LatLon] = Coder.xmap(???)(???, ???)
+    implicit val latLonCoder: Coder[LatLon] =
+      Coder.xmap(Coder[(Int, Int)])(
+        x => LatLon(x._1 / 1000000.0, x._2 / 1000000.0),
+        x => ((x.lat * 1000000).toInt, (x.lon * 1000000).toInt)
+      )
   }
 }

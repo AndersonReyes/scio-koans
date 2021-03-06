@@ -6,7 +6,6 @@ import scio.koans.shared._
  * Fix the non-deterministic coder exception.
  */
 class K02_LatLon1 extends PipelineKoan {
-  ImNotDone
 
   import K02_LatLon1._
 
@@ -42,5 +41,10 @@ object K02_LatLon1 {
   // 1 minute = 60 seconds
   // https://en.wikipedia.org/wiki/Decimal_degrees#Precision
   // Hint: `Double` encoding is not deterministic but `Int` is
-  case class LatLon(lat: Double, lon: Double)
+  case class LatLon(lat: Int, lon: Int)
+
+  object LatLon {
+    def apply(lat: Double, lon: Double): LatLon =
+      LatLon((lat * 1000000).toInt, (lon * 1000000).toInt)
+  }
 }

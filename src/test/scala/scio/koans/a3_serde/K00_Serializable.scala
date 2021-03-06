@@ -8,7 +8,6 @@ import scio.koans.shared._
  * Serialize a simple object.
  */
 class K00_Serializable extends Koan {
-  ImNotDone
 
   "K00a" should "be serializable" in {
     val obj = SerializableUtils.roundTrip(new K00a)
@@ -26,7 +25,7 @@ class K00a extends Serializable {
   val x = 0
 }
 
-class K00b {
+class K00b extends Serializable {
   val x = 0
 }
 

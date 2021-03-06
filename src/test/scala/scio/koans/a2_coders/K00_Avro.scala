@@ -14,7 +14,6 @@ import scala.collection.mutable
  * Encode Avro specific and generic records.
  */
 class K00_Avro extends JmhKoan {
-  ImNotDone
 
   val specificRecord: Test = Test
     .newBuilder()
@@ -57,7 +56,7 @@ class K00_Avro extends JmhKoan {
 
   // FIXME: implement this efficiently
   // Hint: look at the compiler warning
-  val scioGeneric: Coder[GenericRecord] = Coder[GenericRecord]
+  val scioGeneric: Coder[GenericRecord] = Coder.avroGenericRecordCoder(Test.getClassSchema)
   val beamGeneric: beam.Coder[GenericRecord] = CoderMaterializer.beamWithDefault(scioGeneric)
 
   @Benchmark def generic: mutable.WrappedArray[Byte] =
@@ -67,7 +66,7 @@ class K00_Avro extends JmhKoan {
   verifyResults()
 
   // Efficient encoding generic/specific record of the same schema should be comparable
-  verifySpeedup(Speedup.Error(25))
+  verifySpeedup(Speedup.Error(45))
 
   it should "encode to the same size as baseline" in {
     baseline.size shouldBe generic.size
