@@ -7,9 +7,8 @@ import scio.koans.shared._
  * A `TransformKoan` tests Scio transforms, i.e. `SCollection[InT] => SCollection[OutT]`.
  */
 class K00_Count extends TransformKoan {
-  ImNotDone // FIXME: delete this to move on to the next one
 
-  // Input type
+  // Input types
   type InT = SCollection[String]
 
   // Output type
@@ -31,9 +30,11 @@ class K00_Count extends TransformKoan {
   // FIXME: implement this to make the test pass
   test("v1") {
     // Hint: `map` elements to `Long`
-    _.map(_ => ?:[Long]).reduce(???)
+    _.map(_ => 1L).reduce(_ + _)
   }
 
   // Add as many alternatives as you like
-  // test("v2") { ??? }
+   test("v2") {
+     _.map(x => x.length.toLong).reduce(_ + _)
+   }
 }
