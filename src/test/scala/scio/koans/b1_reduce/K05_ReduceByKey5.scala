@@ -7,7 +7,6 @@ import scio.koans.shared._
  * Compute count, sum, min, max, and distinct count by key.
  */
 class K05_ReduceByKey5 extends TransformKoan {
-  ImNotDone
 
   import K05_ReduceByKey5._
 
@@ -39,9 +38,17 @@ class K05_ReduceByKey5 extends TransformKoan {
 
   // How does this compare with `baseline` in terms of shuffle?
   test("v1") {
-    _.mapValues(v => ?:[(Int, Int, Int, Int, Set[Int])])
-      .reduceByKey(???)
-      .mapValues(v => ?:[Stats])
+    _.mapValues(v => (1, v, v, v, Set(v)))
+      .reduceByKey((x, y) =>
+        (
+          x._1 + y._1,
+          x._2 + y._2,
+          Math.min(x._3, y._3),
+          Math.max(x._4, y._4),
+          x._5 ++ y._5
+        )
+      )
+      .mapValues(v => Stats(v._1, v._2, v._3, v._4, v._5.size))
   }
 }
 
