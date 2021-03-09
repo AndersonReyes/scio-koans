@@ -7,7 +7,6 @@ import scio.koans.shared._
  * Implement `join` with `cogroup`.
  */
 class K00_CoGroup extends TransformKoan {
-  ImNotDone
 
   type InT = (SCollection[(String, Int)], SCollection[(String, String)])
   type OutT = (SCollection[(String, (Int, String))])
@@ -59,7 +58,10 @@ class K00_CoGroup extends TransformKoan {
     lhs.cogroup(rhs).flatMapValues { case (lv, rv) =>
       // Implement Cartesian product of LHS * RHS values
       /** Hint: remember [[scio.koans.a1_collections.K09_ForYield]]? */
-      ???
+      for {
+        l <- lv
+        r <- rv
+      } yield (l, r)
     }
   }
 }

@@ -7,7 +7,6 @@ import scio.koans.shared._
  * Implement `leftOuterJoin` with `cogroup`.
  */
 class K01_LeftOuterJoin extends TransformKoan {
-  ImNotDone
 
   type InT = (SCollection[(String, Int)], SCollection[(String, String)])
   type OutT = (SCollection[(String, (Int, Option[String]))])
@@ -58,7 +57,13 @@ class K01_LeftOuterJoin extends TransformKoan {
   test("v1") { case (lhs, rhs) =>
     lhs.cogroup(rhs).flatMapValues { case (lv, rv) =>
       // Hint: produce a single `None` if `rv` is empty
-      ???
+      val rvOpts: Iterator[Option[String]] =
+        if (rv.isEmpty) Iterator(None) else rv.iterator.map(Some(_))
+
+      for {
+        r <- rvOpts
+        l <- lv
+      } yield (l, r)
     }
   }
 }

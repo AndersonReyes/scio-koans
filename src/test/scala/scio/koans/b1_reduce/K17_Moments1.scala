@@ -8,7 +8,6 @@ import scio.koans.shared._
  * Compute count, mean, variance and standard deviation with Moments.
  */
 class K17_Moments1 extends TransformKoan {
-  ImNotDone
 
   import K17_Moments1._
 
@@ -57,15 +56,15 @@ class K17_Moments1 extends TransformKoan {
   test("v1") {
     // `Moments` can compute mean, count, variance, standard deviation, etc. in parallel.
     _.map(x => Moments(x)).sum // Algebird provides implicit `Semigroup[Moments]`
-      .map(m => ?:[Stats])
+      .map(m => Stats(m.count, m.mean, m.variance, m.stddev))
   }
 
   test("v2") { input =>
     // `MomentsAggregator` is of type `MonoidAggregator[Double, Moments, Moments]`
     // We want `Int => Double` in `prepare` and `Moments` => `Stats` in `present`
     val aggregator: Aggregator[Int, Moments, Stats] = MomentsAggregator
-      .composePrepare((x: Int) => ???)
-      .andThenPresent(m => ???)
+      .composePrepare((x: Int) => x.toDouble)
+      .andThenPresent(m => Stats(m.count, m.mean, m.variance, m.stddev))
     input.aggregate(aggregator)
   }
 }

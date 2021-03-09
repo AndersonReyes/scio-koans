@@ -7,7 +7,6 @@ import scio.koans.shared._
  * More aggregators.
  */
 class K20_MoreAggregators2 extends Koan {
-  ImNotDone
 
   def testAggregator[A, B, C](xs: Seq[A], expected: C)(aggregator: Aggregator[A, B, C]): Unit =
     aggregator(xs) shouldBe expected
@@ -19,18 +18,18 @@ class K20_MoreAggregators2 extends Koan {
       ("c", 1)
     )
     testAggregator(xs, ("a", 2))(Aggregator.minBy(_._1))
-    testAggregator(xs, ("c", 1))(???)
-    testAggregator(xs, ???)(Aggregator.minBy(_._2))
-    testAggregator(xs, ("b", 3))(???)
+    testAggregator(xs, ("c", 1))(Aggregator.maxBy(_._1))
+    testAggregator(xs, ("c", 1))(Aggregator.minBy(_._2))
+    testAggregator(xs, ("b", 3))(Aggregator.maxBy(_._2))
   }
 
   it should "support exists" in {
-    testAggregator(1 to 100, ???)(Aggregator.exists(_ % 2 == 0))
-    testAggregator(1 to 100, ???)(Aggregator.exists(_ % 2 == 1))
+    testAggregator(1 to 100, true)(Aggregator.exists(_ % 2 == 0))
+    testAggregator(1 to 100, true)(Aggregator.exists(_ % 2 == 1))
   }
 
   it should "support forall" in {
     testAggregator(0 to 100 by 2, true)(Aggregator.forall(_ % 2 == 0))
-    testAggregator(1 to 99 by 2, ???)(Aggregator.forall(_ % 2 == 1))
+    testAggregator(1 to 99 by 2, true)(Aggregator.forall(_ % 2 == 1))
   }
 }
